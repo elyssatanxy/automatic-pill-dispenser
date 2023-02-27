@@ -72,13 +72,13 @@ app = App(title="pill dispenser")
 intro = Text(app, text = "test")
 
 # NOTE: these buttons will be removed to avoid any tampering
-connect_btn = PushButton(app, text = "Connect", command=connect)
+connect_button = PushButton(app, text = "Connect", command=connect)
 disconnect_button = PushButton(app, text = "Disconnect", command=disconnect)
 
 # BUTTONS FOR ADJUSTING TIMER
 increment_button = PushButton(app, text = "+", command=increment_timer)
 decrement_button = PushButton(app, text = "-", command=decrement_timer)
-send_btn = PushButton(app, text="Send", command=send_data)
+send_button = PushButton(app, text="Send", command=send_data)
 
 # TODO: gui does not reflect the changes in timer values
 timer_text = Text(app, text = timer)
