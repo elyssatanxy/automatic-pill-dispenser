@@ -1,4 +1,4 @@
-from guizero import App, Box, Text, PushButton, Window
+from guizero import App, Box, Text, TextBox, PushButton, Window
 from guizero import info
 import serial
 from serial.serialutil import SerialException
@@ -73,22 +73,38 @@ ser.open()
 # START OF GUI
 app = App(title="pill dispenser")
 
-menu = Box(app, width="fill", align="top")
+# LAYOUT 
+Text(app, text="	", height = 3)
+menu = Box(app, align="top", width="fill")
+content_box = Box(app, align="top", width="fill")
+
+connect_box = Box(content_box, align="right", height="fill")
+Text(app, text="	", height = 3)
+timer_box = Box(app, layout="grid", align="top")
+Text(app, text="	", height = 3)
+datasig_box = Box(app, layout="grid", align="top")
+
+#APP TITLE
 intro = Text(menu, text="Pill Dispensing", size=40, align="top")
 
 # NOTE: these buttons will be removed to avoid any tampering
-connect_button = PushButton(menu, text = "Connect", command=connect, align="right")
-disconnect_button = PushButton(menu, text = "Disconnect", command=disconnect, align="right")
+disconnect_button = PushButton(connect_box, text = "Disconnect", command=disconnect, align="right")
+connect_button = PushButton(connect_box, text = "Connect", command=connect, align="right")
 
 # BUTTONS FOR ADJUSTING TIMER
-increment_button = PushButton(app, text = "+", command=increment_timer)
-decrement_button = PushButton(app, text = "-", command=decrement_timer)
-reset_button = PushButton(app, text = "reset", command=reset_timer)
-send_button = PushButton(app, text="Send", command=send_data)
+decrement_button = PushButton(timer_box, text = "-", command=decrement_timer, grid=[0,1])
+Text(timer_box, text="	", grid=[1,1])
+Text(timer_box, text="	", grid=[3,1])
+increment_button = PushButton(timer_box, text = "+", command=increment_timer, grid=[4,1])
+
+reset_button = PushButton(datasig_box, text = "reset", command=reset_timer, grid=[0,1])
+Text(datasig_box, text="	", grid=[1,1])
+send_button = PushButton(datasig_box, text="Send", command=send_data, grid=[2,1])
 
 # COMPLETED: gui does not reflect the changes in timer values
 timer = 0
-timer_text = Text(app, text = timer, align="top")
+timer_text = Text(timer_box, text = timer, size=40, grid=[2,1])
 
-# app.set_full_screen()
+#app.set_full_screen()
 app.display()
+
