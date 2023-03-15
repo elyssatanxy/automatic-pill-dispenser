@@ -101,10 +101,8 @@ reset_button = PushButton(datasig_box, text = "reset", command=reset_timer, grid
 Text(datasig_box, text="	", grid=[1,1])
 send_button = PushButton(datasig_box, text="Send", command=send_data, grid=[2,1])
 
-# COMPLETED: gui does not reflect the changes in timer values
 timer = 0
 timer_text = Text(timer_box, text = timer, size=40, grid=[2,1])
 
 #app.set_full_screen()
 app.display()
-
