@@ -48,17 +48,17 @@ def loop(serial_port: str) -> None:
                # if the read was successful, do something with it
                if line:
                    if line == "0": # this will always occur when a reminder from microbit A is sent - this is to calculate med timeout
-                      reminder_time = datetime.now() + timedelta(seconds=5) # currently set to 5 seconds
+                      reminder_time = datetime.now() + timedelta(minutes=5) # currently set to 5 seconds
                       takenFlag = 0
                    
                    if line == "1": # this is when the pill is taken
                       takenFlag = 1 # for meds not taken purposes - flag will change to 1 to show it has been taken
-                      msg = "Meds taken at " + datetime.now().strftime('%d/%m/%Y %H:%M:%S') + "."
+                      msg = "Medication has been taken at " + datetime.now().strftime('%d/%m/%Y %H:%M:%S') + "."
                       bot.send_message(691448132, msg)
                    
                if reminder_time.strftime('%d/%m/%Y %H:%M:%S') == datetime.now().strftime('%d/%m/%Y %H:%M:%S') and takenFlag == 0: # beyond timeout and meds hasn't been taken yet
                    ser.write("3".encode()) # sends to microbit for the sound to stop - I hardcoded this, so if this is changed, microbit code also need to change
-                   bot.send_message(691448132, "Medication not taken 5 minutes after reminder.")
+                   bot.send_message(691448132, "Medication has not been taken 5 minutes after reminder.")
                    
        except KeyboardInterrupt:
            print()
@@ -90,8 +90,6 @@ def main() -> None:
 
 
    loop(args_port)
-
-
 
 
 if __name__ == "__main__":
